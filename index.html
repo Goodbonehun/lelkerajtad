@@ -41,21 +41,54 @@ h1,h2,h3{font-family:"Fraunces",Georgia,serif;text-wrap:balance;font-weight:600;
 .hero h1 em{font-style:italic;color:var(--coral)}
 .hero-sub{color:var(--soft);font-size:1rem;max-width:480px;margin:0 auto;position:relative}
 .datum{margin-top:22px;font-size:.85rem;color:var(--soft);letter-spacing:.06em;text-transform:uppercase;position:relative}
-.block{background:var(--raised);border:1px solid var(--line);border-radius:var(--radius);
-  padding:clamp(24px,5vw,36px);margin:18px 0;box-shadow:0 18px 42px -32px color-mix(in srgb, var(--ink) 42%, transparent)}
-.block-label{display:inline-flex;align-items:center;gap:8px;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:14px}
-.l-manna{color:var(--goldd)} .l-tanitas{color:var(--sky)} .l-szosszenet{color:var(--moss)}
+.block{position:relative;overflow:hidden;isolation:isolate;
+  background:linear-gradient(var(--raised),var(--raised)) padding-box,
+    linear-gradient(140deg, color-mix(in srgb, var(--gold) 70%, transparent) 0%, color-mix(in srgb, var(--gold) 12%, transparent) 38%, color-mix(in srgb, var(--coral) 30%, transparent) 100%) border-box;
+  border:1px solid transparent;border-radius:var(--radius);
+  backdrop-filter:blur(10px) saturate(1.15);-webkit-backdrop-filter:blur(10px) saturate(1.15);
+  padding:clamp(24px,5vw,36px);margin:18px 0;
+  box-shadow:0 18px 42px -32px color-mix(in srgb, var(--ink) 42%, transparent), inset 0 1px 0 color-mix(in srgb, #fff 30%, transparent)}
+.block::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0}
+.block.manna::before{background:linear-gradient(135deg, color-mix(in srgb, #fff 34%, transparent) 0%, transparent 38%)}
+.block.tanitas::before{background:linear-gradient(190deg, color-mix(in srgb, #fff 26%, transparent) 0%, transparent 46%)}
+.block.szosszenet::before{background:radial-gradient(circle at 86% 12%, color-mix(in srgb, #fff 32%, transparent), transparent 48%)}
+.block .needle{position:absolute;width:2px;pointer-events:none;z-index:0;
+  background:linear-gradient(180deg, transparent, color-mix(in srgb, #fff 75%, var(--gold) 25%) 48%, transparent)}
+.block.manna .needle{height:120%;top:-10%;left:14%;transform:rotate(22deg);opacity:.5}
+.block.tanitas .needle{height:130%;top:-15%;right:20%;left:auto;transform:rotate(-9deg);opacity:.4}
+.block.szosszenet .needle{height:110%;top:-5%;right:12%;left:auto;transform:rotate(16deg);opacity:.45}
+.block>*{position:relative;z-index:1}
+.block-label{display:inline-flex;align-items:center;gap:8px;font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin-bottom:14px}
+.l-manna{background:linear-gradient(180deg, color-mix(in srgb, var(--gold) 85%, #fff 25%), var(--goldd));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 1px color-mix(in srgb, var(--ink) 22%, transparent))}
+.l-tanitas{background:linear-gradient(180deg, color-mix(in srgb, var(--sky) 85%, #fff 25%), var(--sky));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 1px color-mix(in srgb, var(--ink) 22%, transparent))}
+.l-szosszenet{background:linear-gradient(180deg, color-mix(in srgb, var(--moss) 85%, #fff 25%), var(--moss));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 1px color-mix(in srgb, var(--ink) 22%, transparent))}
 .manna-text{font-family:"Fraunces",serif;font-style:italic;font-size:clamp(1.15rem,3vw,1.45rem);margin:0}
-.manna-again{margin-top:16px;background:none;border:1px solid var(--line);color:var(--soft);border-radius:100px;font:inherit;font-size:.83rem;padding:7px 18px;cursor:pointer}
-.manna-again:hover{color:var(--goldd);border-color:var(--goldd)}
+.manna-again{margin-top:16px;position:relative;background:linear-gradient(150deg, color-mix(in srgb, #fff 22%, transparent), color-mix(in srgb, #fff 4%, transparent));
+  border:1px solid transparent;background-clip:padding-box;color:var(--soft);border-radius:100px;font:inherit;font-size:.83rem;padding:7px 18px;cursor:pointer;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  box-shadow:0 1px 0 color-mix(in srgb, #fff 35%, transparent) inset, 0 8px 18px -14px color-mix(in srgb, var(--ink) 50%, transparent);
+  transition:color .15s,box-shadow .15s,transform .1s}
+.manna-again::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;border:1px solid var(--line)}
+.manna-again:hover{color:var(--goldd)}
+.manna-again:hover::after{border-color:var(--goldd)}
+.manna-again:active{transform:scale(.97);
+  box-shadow:0 1px 0 color-mix(in srgb, #fff 45%, transparent) inset, 0 0 0 4px color-mix(in srgb, var(--gold) 22%, transparent), 0 6px 14px -12px color-mix(in srgb, var(--ink) 55%, transparent)}
 .tanitas h2{font-size:clamp(1.35rem,3.4vw,1.7rem);margin:0 0 14px}
 .tanitas p{margin:0 0 12px;font-size:1.02rem}
 .tanitas p:last-child{margin-bottom:0}
 .forras{margin-top:14px;font-size:.78rem;color:var(--soft)}
 .szosszenet p{font-family:"Fraunces",serif;font-style:italic;font-size:1.08rem;margin:0}
 .nav-days{display:flex;justify-content:space-between;align-items:center;margin:26px 0 10px;gap:10px}
-.nav-days button{background:none;border:1px solid var(--line);border-radius:100px;color:var(--soft);font:inherit;font-size:.85rem;padding:8px 18px;cursor:pointer}
-.nav-days button:hover{color:var(--goldd);border-color:var(--goldd)}
+.nav-days button{position:relative;background:linear-gradient(150deg, color-mix(in srgb, #fff 22%, transparent), color-mix(in srgb, #fff 4%, transparent));
+  border:1px solid transparent;border-radius:100px;color:var(--soft);font:inherit;font-size:.85rem;padding:8px 18px;cursor:pointer;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  box-shadow:0 1px 0 color-mix(in srgb, #fff 35%, transparent) inset, 0 8px 18px -14px color-mix(in srgb, var(--ink) 50%, transparent);
+  transition:color .15s,box-shadow .15s,transform .1s}
+.nav-days button::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;border:1px solid var(--line)}
+.nav-days button:hover{color:var(--goldd)}
+.nav-days button:hover::after{border-color:var(--goldd)}
+.nav-days button:active{transform:scale(.97);
+  box-shadow:0 1px 0 color-mix(in srgb, #fff 45%, transparent) inset, 0 0 0 4px color-mix(in srgb, var(--gold) 22%, transparent), 0 6px 14px -12px color-mix(in srgb, var(--ink) 55%, transparent)}
 .nav-days button[disabled]{opacity:.35;cursor:default}
 footer{text-align:center;padding:34px 0 54px;color:var(--soft);font-size:.82rem}
 footer .heart{color:var(--coral)}
@@ -66,6 +99,7 @@ footer .heart{color:var(--coral)}
 
 <div class="hero">
   <div class="sun"></div>
+  <div class="needle" style="height:340px;top:-40px;left:62%;transform:rotate(14deg);opacity:.5"></div>
   <div class="wrap">
     <div class="eyebrow">Klára nővér gondolatai nyomán</div>
     <h1>Lelke <em>Rajtad</em></h1>
@@ -75,18 +109,21 @@ footer .heart{color:var(--coral)}
 </div>
 
 <div class="wrap" id="content">
-  <div class="block">
+  <div class="block manna">
+    <div class="needle"></div>
     <div class="block-label l-manna">Napi manna</div>
     <p class="manna-text" id="manna"></p>
     <button class="manna-again" id="manna-again">Kérek még egy mannát</button>
   </div>
   <div class="block tanitas">
+    <div class="needle"></div>
     <div class="block-label l-tanitas">Napi tanítás</div>
     <h2 id="t-title"></h2>
     <div id="t-body"></div>
     <div class="forras" id="t-src"></div>
   </div>
   <div class="block szosszenet">
+    <div class="needle"></div>
     <div class="block-label l-szosszenet">Szösszenet</div>
     <p id="sz"></p>
   </div>
