@@ -153,6 +153,8 @@ h1,h2,h3{font-family:"Fraunces",Georgia,serif;text-wrap:balance;font-weight:600;
 .ev-star::before{content:"*";position:absolute;left:0;top:0;color:var(--goldd);font-weight:700}
 .ev-closing{margin-top:16px !important;font-style:italic;color:var(--soft)}
 .ev-src{margin-top:18px;font-size:.78rem;color:var(--soft)}
+.ev-video-note{margin-top:20px !important;font-size:.92rem;color:var(--soft)}
+.ev-panel .video-wrap{margin-top:10px}
 footer{text-align:center;padding:34px 0 54px;color:var(--soft);font-size:.82rem}
 footer .heart{color:var(--coral)}
 footer #ver{opacity:.6;font-size:.75rem}
@@ -230,7 +232,7 @@ footer #ver{opacity:.6;font-size:.75rem}
       <p class="ev-src">Forrás: Klára nővér naplója, Bűnbánati ima</p>
     </div>
     <div class="ev-panel" id="panel-torna">
-      <p class="ev-intro">Torna természetképekkel. Felfelé irányuló mozdulatoknál belégzés, lefelé irányulóknál kilégzés; a gyakorlatok során a figyelem elsősorban a légzésre és a főleg a gerincet érintő gyakorlatok hatására irányul.</p><ul class="ev-list ev-torna"><li>Amint egy virág kinyílik, megnyílunk az Úr előtt.</li><li>Mint a szövetség jelében, a szivárványban, ég és föld összekapcsolódik életünkben.</li><li>Isten szava szétoszlatja a tudatlanság felhőit.</li><li>Mint partot érő hullámok, lecsendesedünk.</li><li>Egy csendes tavon evezünk a mélyre.</li><li>Magasságból felkelő napunkra feltekintünk.</li><li>A hajnalcsillaghoz odafordulunk.</li><li>Az Úr szétválasztotta a vizeket.</li><li>Kezünket mint az Úr népével vonuló felhőjét szemléljük.</li><li>A tenger mélyéig hajol értünk az Úr, hogy az égig emelhessen.</li><li>Galambhoz hasonló alakban szárnyával védve takargat az Úr.</li><li>Körözünk, mint egy szélmalom, tudva, hogy a szél ott fúj, ahol akar.</li><li>Mint Isten gyermekei, labdával játszunk.</li><li>Szárnyra kelünk, mint a sasok.</li></ul><p class="ev-closing">Szolgálatkészségünket és hódolatunkat is kifejező meghajlással Isten kezébe ajánljuk magunkat és napunkat.</p>
+      <p class="ev-intro">Torna természetképekkel. Felfelé irányuló mozdulatoknál belégzés, lefelé irányulóknál kilégzés; a gyakorlatok során a figyelem elsősorban a légzésre és a főleg a gerincet érintő gyakorlatok hatására irányul.</p><ul class="ev-list ev-torna"><li>Amint egy virág kinyílik, megnyílunk az Úr előtt.</li><li>Mint a szövetség jelében, a szivárványban, ég és föld összekapcsolódik életünkben.</li><li>Isten szava szétoszlatja a tudatlanság felhőit.</li><li>Mint partot érő hullámok, lecsendesedünk.</li><li>Egy csendes tavon evezünk a mélyre.</li><li>Magasságból felkelő napunkra feltekintünk.</li><li>A hajnalcsillaghoz odafordulunk.</li><li>Az Úr szétválasztotta a vizeket.</li><li>Kezünket mint az Úr népével vonuló felhőjét szemléljük.</li><li>A tenger mélyéig hajol értünk az Úr, hogy az égig emelhessen.</li><li>Galambhoz hasonló alakban szárnyával védve takargat az Úr.</li><li>Körözünk, mint egy szélmalom, tudva, hogy a szél ott fúj, ahol akar.</li><li>Mint Isten gyermekei, labdával játszunk.</li><li>Szárnyra kelünk, mint a sasok.</li></ul><p class="ev-video-note">Ha követni szeretnéd a gyakorlatokat, az alábbi videót ajánljuk megtekintésre.</p><div class="video-wrap"><iframe src="https://www.youtube.com/embed/ZJcTvbtOS0Y" title="Torna bibliai képekkel" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe></div><p class="ev-closing">Szolgálatkészségünket és hódolatunkat is kifejező meghajlással Isten kezébe ajánljuk magunkat és napunkat.</p>
     </div>
   </div>
 </div>
@@ -347,7 +349,7 @@ document.getElementById("next").addEventListener("click", () => { if (offset < 0
 document.getElementById("today-btn").addEventListener("click", () => { offset = 0; show(); });
 document.getElementById("cal-prev").addEventListener("click", () => { calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() - 1, 1); renderCalendar(); });
 document.getElementById("cal-next").addEventListener("click", () => { calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() + 1, 1); renderCalendar(); });
-document.getElementById("ver").textContent = "v81";
+document.getElementById("ver").textContent = "v82";
 document.getElementById("sohaj-help-text").textContent = SOHAJ_HELP;
 document.querySelectorAll(".ev-tab").forEach(tab => {
   tab.addEventListener("click", () => {
