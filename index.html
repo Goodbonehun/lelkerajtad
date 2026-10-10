@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=Figtree:wght@400;500;600;700&display=swap">
 <style>
 :root {
-  --paper:#fffaf2; --raised:#fff4e2; --ink:#4a4038; --soft:#8a7a6a;
+  --paper:#fffaf2; --raised:#fff4e2; --ink:#4a4038; --soft:#6f6052;
   --gold:#f4ad3f; --goldd:#e08c1f; --coral:#ff8a5c; --papaya:#ff7a2e; --sky:#6aa8cc; --moss:#8fb573; --lilac:#9b7bc4;
   --line:rgba(170,120,60,.18); --radius:20px;
 }
@@ -107,15 +107,15 @@ h1,h2,h3{font-family:"Fraunces",Georgia,serif;text-wrap:balance;font-weight:600;
 .block-label{display:flex;align-items:center;gap:11px;font-size:.82rem;letter-spacing:.13em;text-transform:uppercase;font-weight:800;
   margin:0 0 20px;padding-bottom:13px;border-bottom:1.5px solid color-mix(in srgb, currentColor 28%, transparent)}
 .block-label .b-icon{width:23px;height:23px;flex:0 0 auto;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.92}
-.l-manna{color:var(--goldd)}
-.l-tanitas{color:color-mix(in srgb, var(--sky) 72%, var(--ink) 28%)}
-.l-szosszenet{color:color-mix(in srgb, var(--moss) 65%, var(--ink) 35%)}
-.l-dicsoites{color:color-mix(in srgb, var(--coral) 72%, var(--ink) 18%)}
+.l-manna{color:color-mix(in srgb, var(--goldd) 50%, var(--ink) 50%)}
+.l-tanitas{color:color-mix(in srgb, var(--sky) 50%, var(--ink) 50%)}
+.l-szosszenet{color:color-mix(in srgb, var(--moss) 45%, var(--ink) 55%)}
+.l-dicsoites{color:color-mix(in srgb, var(--coral) 45%, var(--ink) 55%)}
 .block.dicsoites::before{background:linear-gradient(160deg, color-mix(in srgb, var(--coral) 14%, transparent) 0%, color-mix(in srgb, var(--coral) 5%, transparent) 42%, transparent 74%)}
 .video-wrap{position:relative;width:100%;aspect-ratio:16/9;border-radius:calc(var(--radius) - 8px);overflow:hidden;background:var(--ink);box-shadow:0 10px 26px -18px color-mix(in srgb, var(--ink) 55%, transparent)}
 .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .dicsoites-note{margin:14px 0 0;font-size:.82rem;color:var(--soft)}
-.l-sohaj{color:color-mix(in srgb, var(--lilac) 72%, var(--ink) 18%)}
+.l-sohaj{color:color-mix(in srgb, var(--lilac) 50%, var(--ink) 50%)}
 .block.sohaj::before{background:linear-gradient(200deg, color-mix(in srgb, var(--lilac) 14%, transparent) 0%, color-mix(in srgb, var(--lilac) 5%, transparent) 42%, transparent 74%)}
 .sohaj-speaker{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-bottom:10px;font-weight:700}
 .sohaj-line{font-family:"Fraunces",serif;font-style:italic;font-size:1.1rem;margin:0 0 10px;padding-left:30px;position:relative}
@@ -174,7 +174,7 @@ h1,h2,h3{font-family:"Fraunces",Georgia,serif;text-wrap:balance;font-weight:600;
 .cal-day.is-today{border-color:var(--gold)}
 .cal-day.is-selected{background:linear-gradient(160deg,var(--gold),var(--goldd));color:#fff;font-weight:700;border-color:transparent}
 .cal-day.is-selected:hover{color:#fff}
-.l-evergreen{color:color-mix(in srgb, var(--moss) 65%, var(--ink) 35%)}
+.l-evergreen{color:color-mix(in srgb, var(--moss) 45%, var(--ink) 55%)}
 .block.evergreen::before{background:linear-gradient(200deg, color-mix(in srgb, var(--moss) 14%, transparent) 0%, color-mix(in srgb, var(--moss) 5%, transparent) 42%, transparent 74%)}
 .ev-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
 .ev-tab{position:relative;background:color-mix(in srgb, #fff 14%, transparent);border:1px solid var(--line);border-radius:100px;color:var(--soft);font:inherit;font-weight:700;font-size:.85rem;padding:9px 18px;cursor:pointer;backdrop-filter:blur(6px);transition:color .15s,background .15s,border-color .15s}
@@ -216,6 +216,35 @@ footer #ver{opacity:.6;font-size:.75rem}
 .install-info p{margin:0 0 8px}
 .install-info p:last-child{margin-bottom:0}
 .install-info strong{color:var(--ink)}
+.video-loading{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--soft);font-size:.85rem;background:var(--raised);transition:opacity .25s ease;text-align:center;padding:16px}
+.video-spinner{width:26px;height:26px;border-radius:50%;border:3px solid color-mix(in srgb, var(--gold) 35%, transparent);border-top-color:var(--goldd);animation:video-spin .8s linear infinite}
+@keyframes video-spin{to{transform:rotate(360deg)}}
+.video-wrap.is-loaded .video-loading{opacity:0;pointer-events:none}
+.video-fallback{display:none;position:absolute;inset:0;z-index:3;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:16px;background:var(--raised);color:var(--soft);font-size:.85rem}
+.video-fallback a{color:var(--goldd);font-weight:700;text-decoration:underline}
+.video-wrap.is-failed .video-loading{display:none}
+.video-wrap.is-failed .video-fallback{display:flex}
+.greeting-card{max-width:680px;margin:0 auto;padding:0 clamp(20px,5vw,40px) 2px;text-align:center}
+.greeting-line{margin:0 0 6px;font-family:"Fraunces",serif}
+.greeting-const{font-size:1.05rem;font-weight:600;color:var(--ink)}
+.greeting-daily{font-style:italic;color:var(--soft);font-size:.98rem}
+.day-arc{max-width:680px;margin:12px auto 0;padding:0 clamp(20px,5vw,40px);text-align:center;font-size:.85rem;color:var(--soft);line-height:1.6}
+.fav-row{display:flex;justify-content:center;margin:14px 0 4px}
+.fav-toggle-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(150deg, color-mix(in srgb, #fff 22%, transparent), color-mix(in srgb, #fff 4%, transparent));
+  border:1px solid var(--line);border-radius:100px;color:var(--soft);font:inherit;font-size:.85rem;padding:8px 18px;cursor:pointer;backdrop-filter:blur(6px);transition:color .15s,border-color .15s}
+.fav-toggle-btn .fav-star{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8}
+.fav-toggle-btn:hover{color:var(--goldd);border-color:var(--goldd)}
+.fav-toggle-btn.is-on{color:var(--goldd);border-color:var(--goldd)}
+.fav-toggle-btn.is-on .fav-star{fill:currentColor}
+.l-favorites{color:color-mix(in srgb, var(--papaya) 45%, var(--ink) 55%)}
+.block.favorites::before{background:linear-gradient(170deg, color-mix(in srgb, var(--papaya) 12%, transparent) 0%, color-mix(in srgb, var(--papaya) 4%, transparent) 42%, transparent 74%)}
+.favorites-empty{color:var(--soft);font-size:.92rem;margin:0}
+.favorites-list-ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.favorites-item{display:flex;align-items:center;gap:8px}
+.favorites-jump{flex:1;text-align:left;background:color-mix(in srgb, #fff 14%, transparent);border:1px solid var(--line);border-radius:12px;color:var(--ink);font:inherit;font-size:.92rem;padding:10px 14px;cursor:pointer;transition:border-color .15s,color .15s}
+.favorites-jump:hover{border-color:var(--goldd);color:var(--goldd)}
+.favorites-remove{background:none;border:0;color:var(--soft);font-size:1.1rem;line-height:1;cursor:pointer;padding:6px 8px;border-radius:8px}
+.favorites-remove:hover{color:var(--coral)}
 </style>
 </head>
 <body>
@@ -246,6 +275,11 @@ footer #ver{opacity:.6;font-size:.75rem}
 </header>
 
 <div class="wrap" id="content">
+  <div class="greeting-card" id="greetingCard">
+    <p class="greeting-line greeting-const">Örülök, hogy ma is betértél.</p>
+    <p class="greeting-line greeting-daily" id="greetingDaily"></p>
+  </div>
+  <p class="day-arc">A Lelke Rajtad minden nap egy kis utat jár végig veled: egy <strong>mannával</strong> indul, egy rövid <strong>tanítással</strong> folytatódik, egy <strong>szösszenetben</strong> imává érik, egy <strong>dicsőítéssel</strong> tágul, és egy <strong>sóhaj-imával</strong> zár — öt lépés egy csendes napra, Klára nővér gondolatai nyomán.</p>
   <div class="block manna">
     <div class="block-label l-manna"><svg class="b-icon" viewBox="0 0 24 24"><path d="M4 12.5c0-4 3.2-7.2 8-7.2s8 3.2 8 7.2c0 1.2-1 2.2-2.2 2.2H6.2C5 14.7 4 13.7 4 12.5z"/><path d="M8 9.8v3.4M12 8.6v4.6M16 9.8v3.4"/></svg><span>Napi manna</span></div>
     <p class="manna-text" id="manna"></p>
@@ -266,7 +300,14 @@ footer #ver{opacity:.6;font-size:.75rem}
   <div class="beam"></div>
   <div class="block dicsoites">
     <div class="block-label l-dicsoites"><svg class="b-icon" viewBox="0 0 24 24"><path d="M9.2 18V6.4l10-2v11.6"/><circle cx="7" cy="18" r="2.4"/><circle cx="17" cy="16" r="2.4"/></svg><span>Dicsőítés</span></div>
-    <div class="video-wrap"><iframe id="dicsoites-frame" src="" title="Dicsőítés" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+    <div class="video-wrap" id="dicsoites-wrap">
+      <div class="video-loading" id="dicsoites-loading"><span class="video-spinner"></span><span>Videó betöltése…</span></div>
+      <div class="video-fallback" id="dicsoites-fallback">
+        <p>A videó most lassan töltődik, vagy átmenetileg nem érhető el.</p>
+        <a id="dicsoites-link" href="#" target="_blank" rel="noopener">Megnyitás YouTube-on</a>
+      </div>
+      <iframe id="dicsoites-frame" src="" title="Dicsőítés" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    </div>
     <p class="dicsoites-note">Klára nővér dicsőítő énekei közül egy a mai napra.</p>
   </div>
   <div class="beam"></div>
@@ -284,6 +325,12 @@ footer #ver{opacity:.6;font-size:.75rem}
     <button id="today-btn">Mai nap</button>
     <button id="next">Következő nap &rarr;</button>
   </div>
+  <div class="fav-row">
+    <button type="button" id="fav-toggle" class="fav-toggle-btn" aria-pressed="false">
+      <svg class="fav-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.5 6 .8-4.3 4.2 1 6-5.3-2.9-5.3 2.9 1-6-4.3-4.2 6-.8z"/></svg>
+      <span id="fav-toggle-label">Kedvenc nap</span>
+    </button>
+  </div>
   <div class="block calendar">
     <div class="cal-head">
       <button id="cal-prev" aria-label="Előző hónap">&larr;</button>
@@ -291,6 +338,11 @@ footer #ver{opacity:.6;font-size:.75rem}
       <button id="cal-next" aria-label="Következő hónap">&rarr;</button>
     </div>
     <div class="cal-grid" id="cal-grid"></div>
+  </div>
+  <div class="beam"></div>
+  <div class="block favorites" id="favoritesBlock">
+    <div class="block-label l-favorites"><svg class="b-icon" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.5 6 .8-4.3 4.2 1 6-5.3-2.9-5.3 2.9 1-6-4.3-4.2 6-.8z"/></svg><span>Kedvenc napok</span></div>
+    <div id="favorites-list"></div>
   </div>
   <div class="beam"></div>
   <div class="block evergreen">
@@ -370,6 +422,15 @@ function praiseFor(date) {
   const seed = date.getFullYear()*1000 + (date.getMonth()+1)*50 + date.getDate();
   return PRAISE[(seed * 13) % PRAISE.length];
 }
+const GREETINGS = [
+  "Lassíts egy lélegzetnyit — Isten nem siet veled.",
+  "Ma is van helyed ebben a csendben.",
+  "Egy kis morzsa most is elég lehet."
+];
+function greetingFor(date) {
+  const seed = date.getFullYear()*1000 + (date.getMonth()+1)*50 + date.getDate();
+  return GREETINGS[(seed * 7) % GREETINGS.length];
+}
 function sohajFor(date) {
   const arr = SOHAJ[String(date.getMonth() + 1)];
   const dd = date.getDate();
@@ -414,6 +475,70 @@ function renderTeaching(text) {
 function sameDay(a,b) { return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate(); }
 function startOfMonth(d) { return new Date(d.getFullYear(), d.getMonth(), 1); }
 const CAL_MONTH_FMT = new Intl.DateTimeFormat("hu-HU", { year:"numeric", month:"long" });
+const HU_DATE_SHORT = new Intl.DateTimeFormat("hu-HU", { year:"numeric", month:"long", day:"numeric" });
+const LS_FAV = "lelkerajtad-favs";
+function lsStore(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+function lsRead(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+function dateKey(d) { return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0"); }
+function keyToDate(key) { const p = key.split("-").map(Number); return new Date(p[0], p[1]-1, p[2]); }
+function getFavs() { try { const a = JSON.parse(lsRead(LS_FAV) || "[]"); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+function isFav(key) { return getFavs().indexOf(key) !== -1; }
+function toggleFav(key) {
+  const f = getFavs(); const i = f.indexOf(key);
+  if (i === -1) f.push(key); else f.splice(i, 1);
+  f.sort(); lsStore(LS_FAV, JSON.stringify(f));
+  return i === -1;
+}
+function removeFav(key) {
+  const f = getFavs(); const i = f.indexOf(key);
+  if (i !== -1) { f.splice(i, 1); lsStore(LS_FAV, JSON.stringify(f)); }
+}
+function renderFavToggle(d) {
+  const btn = document.getElementById("fav-toggle");
+  if (!btn) return;
+  const on = isFav(dateKey(d));
+  btn.classList.toggle("is-on", on);
+  btn.setAttribute("aria-pressed", on ? "true" : "false");
+}
+function renderFavoritesList() {
+  const list = document.getElementById("favorites-list");
+  if (!list) return;
+  const favs = getFavs();
+  if (!favs.length) {
+    list.innerHTML = '<p class="favorites-empty">Még nincs elmentett kedvenc napod. Kattints a csillagra egy olyan napnál, amely különösen megérintett, hogy könnyen visszatalálj hozzá.</p>';
+    return;
+  }
+  const today0 = new Date(); today0.setHours(0,0,0,0);
+  list.innerHTML = '<ul class="favorites-list-ul">' + favs.slice().sort().reverse().map(key => {
+    const d = keyToDate(key);
+    const off = Math.round((d - today0) / 86400000);
+    return '<li class="favorites-item"><button type="button" class="favorites-jump" data-offset="' + off + '">' + escHtml(HU_DATE_SHORT.format(d)) + '</button><button type="button" class="favorites-remove" data-key="' + key + '" aria-label="Törlés a kedvencek közül">&times;</button></li>';
+  }).join("") + "</ul>";
+  list.querySelectorAll(".favorites-jump").forEach(b => {
+    b.addEventListener("click", () => { offset = parseInt(b.dataset.offset, 10); show(); });
+  });
+  list.querySelectorAll(".favorites-remove").forEach(b => {
+    b.addEventListener("click", (e) => {
+      e.stopPropagation();
+      removeFav(b.dataset.key);
+      renderFavoritesList();
+      renderFavToggle(currentDate());
+    });
+  });
+}
+function loadDicsoites(vid) {
+  const wrap = document.getElementById("dicsoites-wrap");
+  const frame = document.getElementById("dicsoites-frame");
+  const link = document.getElementById("dicsoites-link");
+  if (!wrap || !frame) return;
+  wrap.classList.remove("is-loaded", "is-failed");
+  if (window.__dicsoitesTimer) clearTimeout(window.__dicsoitesTimer);
+  if (link) link.href = "https://www.youtube.com/watch?v=" + vid;
+  frame.src = "https://www.youtube.com/embed/" + vid;
+  window.__dicsoitesTimer = setTimeout(() => {
+    if (!wrap.classList.contains("is-loaded")) wrap.classList.add("is-failed");
+  }, 9000);
+}
 const DOW_NAMES = ["H","K","Sze","Cs","P","Szo","V"];
 function renderCalendar() {
   const shown = currentDate();
@@ -441,17 +566,19 @@ function show() {
   const d = new Date(); d.setDate(d.getDate() + offset);
   const day = DAYS[dayIndexFor(d)];
   document.getElementById("datum").textContent = HU_DATE.format(d);
+  document.getElementById("greetingDaily").textContent = greetingFor(d);
   mannaExtra = 0; renderManna();
   document.getElementById("t-title").textContent = day.title;
   document.getElementById("t-body").innerHTML = renderTeaching(day.teaching);
   document.getElementById("t-src").textContent = "Forrás: " + day.source;
   document.getElementById("sz").textContent = day.szosszenet;
   const vid = praiseFor(d);
-  document.getElementById("dicsoites-frame").src = "https://www.youtube.com/embed/" + vid;
+  loadDicsoites(vid);
   renderSohaj(d);
   document.getElementById("next").disabled = offset >= 0;
   calMonth = startOfMonth(d);
   renderCalendar();
+  renderFavToggle(d);
 }
 document.getElementById("manna-again").addEventListener("click", () => { mannaExtra++; renderManna(); });
 document.getElementById("prev").addEventListener("click", () => { offset--; show(); });
@@ -459,7 +586,16 @@ document.getElementById("next").addEventListener("click", () => { if (offset < 0
 document.getElementById("today-btn").addEventListener("click", () => { offset = 0; show(); });
 document.getElementById("cal-prev").addEventListener("click", () => { calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() - 1, 1); renderCalendar(); });
 document.getElementById("cal-next").addEventListener("click", () => { calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() + 1, 1); renderCalendar(); });
-document.getElementById("ver").textContent = "v83";
+document.getElementById("dicsoites-frame").addEventListener("load", () => {
+  document.getElementById("dicsoites-wrap").classList.add("is-loaded");
+});
+document.getElementById("fav-toggle").addEventListener("click", () => {
+  const d = currentDate();
+  toggleFav(dateKey(d));
+  renderFavToggle(d);
+  renderFavoritesList();
+});
+document.getElementById("ver").textContent = "v84";
 document.getElementById("sohaj-help-text").textContent = SOHAJ_HELP;
 document.querySelectorAll(".ev-tab").forEach(tab => {
   tab.addEventListener("click", () => {
@@ -472,7 +608,7 @@ document.querySelectorAll(".ev-tab").forEach(tab => {
     }
   });
 });
-(function() {  const audio = document.getElementById("szeml-audio");  if (!audio) return;  const playBtn = document.getElementById("szeml-play");  const backBtn = document.getElementById("szeml-back");  const fwdBtn = document.getElementById("szeml-fwd");  const seek = document.getElementById("szeml-seek");  const curEl = document.getElementById("szeml-cur");  const durEl = document.getElementById("szeml-dur");  function fmt(s) {    if (!isFinite(s) || s < 0) return "0:00";    const m = Math.floor(s / 60), sec = Math.floor(s % 60);    return m + ":" + String(sec).padStart(2, "0");  }  audio.addEventListener("loadedmetadata", () => { seek.max = audio.duration; durEl.textContent = fmt(audio.duration); });  audio.addEventListener("timeupdate", () => { if (!seek.matches(":active")) seek.value = audio.currentTime; curEl.textContent = fmt(audio.currentTime); });  audio.addEventListener("ended", () => { playBtn.innerHTML = "&#9654;"; playBtn.setAttribute("aria-label", "Lejátszás"); });  playBtn.addEventListener("click", () => {    if (audio.paused) { audio.play(); playBtn.innerHTML = "&#10074;&#10074;"; playBtn.setAttribute("aria-label", "Szünet"); }    else { audio.pause(); playBtn.innerHTML = "&#9654;"; playBtn.setAttribute("aria-label", "Lejátszás"); }  });  backBtn.addEventListener("click", () => { audio.currentTime = Math.max(0, audio.currentTime - 10); });  fwdBtn.addEventListener("click", () => { audio.currentTime = Math.min(audio.duration || (audio.currentTime + 10), audio.currentTime + 10); });  seek.addEventListener("input", () => { audio.currentTime = seek.value; });})();show();let lastShownDateKey = currentDate().toDateString();
+(function() {  const audio = document.getElementById("szeml-audio");  if (!audio) return;  const playBtn = document.getElementById("szeml-play");  const backBtn = document.getElementById("szeml-back");  const fwdBtn = document.getElementById("szeml-fwd");  const seek = document.getElementById("szeml-seek");  const curEl = document.getElementById("szeml-cur");  const durEl = document.getElementById("szeml-dur");  function fmt(s) {    if (!isFinite(s) || s < 0) return "0:00";    const m = Math.floor(s / 60), sec = Math.floor(s % 60);    return m + ":" + String(sec).padStart(2, "0");  }  audio.addEventListener("loadedmetadata", () => { seek.max = audio.duration; durEl.textContent = fmt(audio.duration); });  audio.addEventListener("timeupdate", () => { if (!seek.matches(":active")) seek.value = audio.currentTime; curEl.textContent = fmt(audio.currentTime); });  audio.addEventListener("ended", () => { playBtn.innerHTML = "&#9654;"; playBtn.setAttribute("aria-label", "Lejátszás"); });  playBtn.addEventListener("click", () => {    if (audio.paused) { audio.play(); playBtn.innerHTML = "&#10074;&#10074;"; playBtn.setAttribute("aria-label", "Szünet"); }    else { audio.pause(); playBtn.innerHTML = "&#9654;"; playBtn.setAttribute("aria-label", "Lejátszás"); }  });  backBtn.addEventListener("click", () => { audio.currentTime = Math.max(0, audio.currentTime - 10); });  fwdBtn.addEventListener("click", () => { audio.currentTime = Math.min(audio.duration || (audio.currentTime + 10), audio.currentTime + 10); });  seek.addEventListener("input", () => { audio.currentTime = seek.value; });})();show();renderFavoritesList();let lastShownDateKey = currentDate().toDateString();
 setInterval(() => {
   const nowKey = new Date().toDateString();
   if (offset === 0 && nowKey !== lastShownDateKey) {
