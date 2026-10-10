@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>(function(){try{var STEPS=[0.9,1,1.1,1.22,1.35];var v=parseFloat(localStorage.getItem('lelkerajtad-fs'));var i=STEPS.indexOf(v);document.documentElement.style.setProperty('--fs-scale', STEPS[i===-1?1:i]);}catch(e){}})();</script>
 <meta name="description" content="Lelke Rajtad: napi manna, rövid tanítás és imádság Klára nővér gondolatai nyomán. Tiszta forrás minden napra.">
 <title>Lelke Rajtad</title>
 <link rel="manifest" href="manifest.json">
@@ -33,6 +34,7 @@
   --line:rgba(247,222,190,.18);
 }
 *{box-sizing:border-box}
+html{font-size:calc(16px * var(--fs-scale, 1))}
 body{margin:0;color:var(--ink);font-family:"Figtree",-apple-system,"Segoe UI",sans-serif;line-height:1.7;
   background:
     radial-gradient(ellipse 1000px 560px at 50% 0%, color-mix(in srgb, var(--gold) 16%, transparent), transparent 62%),
@@ -40,7 +42,23 @@ body{margin:0;color:var(--ink);font-family:"Figtree",-apple-system,"Segoe UI",sa
     var(--paper)}
 h1,h2,h3{font-family:"Fraunces",Georgia,serif;text-wrap:balance;font-weight:600;letter-spacing:-0.01em}
 .wrap{max-width:680px;margin:0 auto;padding:0 clamp(20px,5vw,40px)}
-.hero-shell{max-width:1200px;margin:0 auto;padding:clamp(20px,5vw,36px) clamp(16px,4vw,40px) 0}
+.page-top{position:relative}
+.hero-shell{max-width:1200px;margin:0 auto;padding:clamp(56px,11vw,72px) clamp(16px,4vw,40px) 0}
+.reading-tools{position:absolute;top:clamp(14px,3vw,20px);left:clamp(14px,3vw,24px);z-index:5;
+  display:flex;align-items:center;gap:8px;font-family:"Figtree",-apple-system,"Segoe UI",sans-serif}
+.rt-group{display:inline-flex;align-items:center;gap:3px;padding:3px;border-radius:999px;
+  border:1px solid var(--line);background:color-mix(in srgb, var(--raised) 88%, transparent);
+  backdrop-filter:blur(6px) saturate(1.1);-webkit-backdrop-filter:blur(6px) saturate(1.1);
+  box-shadow:0 6px 18px -10px color-mix(in srgb, var(--ink) 40%, transparent)}
+.rt-btn{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 9px;
+  border:0;border-radius:999px;cursor:pointer;background:transparent;color:var(--soft);
+  font-family:inherit;font-weight:700;letter-spacing:.02em;line-height:1;transition:background .16s ease,color .16s ease}
+.rt-btn:hover:not(:disabled){background:color-mix(in srgb, var(--gold) 18%, transparent);color:var(--goldd)}
+.rt-btn:disabled{opacity:.32;cursor:default}
+.rt-btn:focus-visible{outline:2px solid var(--goldd);outline-offset:2px}
+.rt-btn.rt-small{font-size:.7rem}
+.rt-btn.rt-large{font-size:.96rem}
+.rt-label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .hero{display:flex;flex-direction:column;gap:20px;text-align:center}
 .hero-content{order:1}
 .hero-media{order:2;position:relative;isolation:isolate;overflow:hidden;border-radius:20px;
@@ -203,20 +221,29 @@ footer #ver{opacity:.6;font-size:.75rem}
 <body>
 
 
-<div class="hero-shell">
-  <div class="hero">
-    <div class="hero-content">
-      <div class="eyebrow">Klára nővér gondolatai nyomán</div>
-      <h1>Lelke <em>Rajtad</em></h1>
-      <p class="hero-sub">Minden napra egy manna, egy rövid tanítás és egy imádság. Csendes forrás nehéz és szép napokra.</p>
-      <div class="datum" id="datum"></div>
+<header class="page-top">
+  <div class="reading-tools" id="readingTools">
+    <div class="rt-group" role="group" aria-label="Betűméret">
+      <button type="button" class="rt-btn rt-small" id="fsMinus" aria-label="Kisebb betű" title="Kisebb betű">A</button>
+      <span class="rt-label" id="fsLabel"></span>
+      <button type="button" class="rt-btn rt-large" id="fsPlus" aria-label="Nagyobb betű" title="Nagyobb betű">A</button>
     </div>
-    <picture class="hero-media">
-      <source srcset="images/hero.webp" type="image/webp">
-      <img src="images/hero.jpg" alt="" width="1672" height="941" loading="eager" fetchpriority="high">
-    </picture>
   </div>
-</div>
+  <div class="hero-shell">
+    <div class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">Klára nővér gondolatai nyomán</div>
+        <h1>Lelke <em>Rajtad</em></h1>
+        <p class="hero-sub">Minden napra egy manna, egy rövid tanítás és egy imádság. Csendes forrás nehéz és szép napokra.</p>
+        <div class="datum" id="datum"></div>
+      </div>
+      <picture class="hero-media">
+        <source srcset="images/hero.webp" type="image/webp">
+        <img src="images/hero.jpg" alt="" width="1672" height="941" loading="eager" fetchpriority="high">
+      </picture>
+    </div>
+  </div>
+</header>
 
 <div class="wrap" id="content">
   <div class="block manna">
@@ -453,6 +480,40 @@ setInterval(() => {
     show();
   }
 }, 30000);
+</script>
+<script>
+(function(){
+  var STEPS = [0.9, 1, 1.1, 1.22, 1.35];
+  var KEY = 'lelkerajtad-fs';
+  function store(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
+  function read(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function currentStep(){
+    var v = parseFloat(read(KEY));
+    var idx = STEPS.indexOf(v);
+    return idx === -1 ? 1 : idx;
+  }
+  function applyScale(idx){
+    document.documentElement.style.setProperty('--fs-scale', STEPS[idx]);
+    store(KEY, String(STEPS[idx]));
+  }
+  var minus = document.getElementById('fsMinus');
+  var plus = document.getElementById('fsPlus');
+  var lab = document.getElementById('fsLabel');
+  if (!minus || !plus || !lab) return;
+  function refresh(){
+    var i = currentStep();
+    lab.textContent = Math.round(STEPS[i] * 100) + '%';
+    minus.disabled = (i === 0);
+    plus.disabled = (i === STEPS.length - 1);
+  }
+  minus.addEventListener('click', function(){
+    var i = currentStep(); if (i > 0){ applyScale(i - 1); refresh(); }
+  });
+  plus.addEventListener('click', function(){
+    var i = currentStep(); if (i < STEPS.length - 1){ applyScale(i + 1); refresh(); }
+  });
+  refresh();
+})();
 </script>
 </body>
 </html>
