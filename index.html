@@ -40,32 +40,36 @@ body{margin:0;color:var(--ink);font-family:"Figtree",-apple-system,"Segoe UI",sa
     var(--paper)}
 h1,h2,h3{font-family:"Fraunces",Georgia,serif;text-wrap:balance;font-weight:600;letter-spacing:-0.01em}
 .wrap{max-width:680px;margin:0 auto;padding:0 clamp(20px,5vw,40px)}
-.hero{position:relative;overflow:hidden;isolation:isolate;text-align:center;
-  display:flex;align-items:center;justify-content:center;
-  min-height:clamp(440px,52vw,600px);
-  padding:clamp(32px,6vw,0) 0;color:#fbf1e3}
-.hero-media{position:absolute;inset:0;z-index:-2;margin:0}
-.hero-media img{width:100%;height:100%;object-fit:cover;object-position:52% 50%;display:block}
-.hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:
-    linear-gradient(180deg, rgba(21,14,8,.22) 0%, rgba(21,14,8,.4) 48%, rgba(16,10,6,.66) 100%),
-    radial-gradient(ellipse 640px 420px at 50% 46%, rgba(18,11,6,.4), transparent 72%)}
-@media (max-width:720px){
-  .hero{min-height:clamp(540px,128vw,660px)}
-  .hero-media img{object-position:58% 50%}
-  .hero::before{background:
-    linear-gradient(180deg, rgba(21,14,8,.35) 0%, rgba(18,12,7,.48) 40%, rgba(15,9,5,.78) 100%),
-    radial-gradient(ellipse 480px 520px at 50% 48%, rgba(18,11,6,.46), transparent 74%)}
-}
+.hero-shell{max-width:1200px;margin:0 auto;padding:clamp(20px,5vw,36px) clamp(16px,4vw,40px) 0}
+.hero{display:flex;flex-direction:column;gap:20px;text-align:center}
+.hero-content{order:1}
+.hero-media{order:2;position:relative;isolation:isolate;overflow:hidden;border-radius:20px;
+  aspect-ratio:1672/941;box-shadow:0 16px 40px -22px color-mix(in srgb, var(--ink) 55%, transparent);
+  border:1px solid var(--line);margin:0}
+.hero-media img{width:100%;height:100%;object-fit:cover;display:block}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;
-  color:#f6d9a8;font-weight:700;margin-bottom:16px;text-shadow:0 1px 12px rgba(0,0,0,.4)}
-.eyebrow::before,.eyebrow::after{content:"";width:22px;height:1px;background:#f6d9a8;opacity:.75}
-.hero h1{font-size:clamp(2.3rem,7vw,3.6rem);margin:0 0 10px;position:relative;color:#fffaf0;
-  text-shadow:0 2px 4px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.3)}
-.hero h1 em{font-style:italic;font-weight:600;color:#ffa17c;
-  text-shadow:0 2px 4px rgba(0,0,0,.35),0 0 34px rgba(255,138,92,.55),0 10px 30px rgba(0,0,0,.3)}
-.hero-sub{color:#f5e9d9;font-size:1rem;max-width:480px;margin:0 auto;position:relative;text-shadow:0 1px 12px rgba(0,0,0,.4)}
-.datum{margin-top:22px;font-size:.85rem;color:#e6d4bd;letter-spacing:.06em;text-transform:uppercase;position:relative;text-shadow:0 1px 10px rgba(0,0,0,.4)}
+  color:var(--goldd);font-weight:700;margin-bottom:16px}
+.eyebrow::before,.eyebrow::after{content:"";width:22px;height:1px;background:var(--goldd);opacity:.6}
+.hero h1{font-size:clamp(2.3rem,7vw,3.6rem);margin:0 0 10px;position:relative;color:var(--ink)}
+.hero h1 em{font-style:italic;font-weight:600;color:var(--coral)}
+.hero-sub{color:var(--soft);font-size:1rem;max-width:480px;margin:0 auto;position:relative}
+.datum{margin-top:22px;font-size:.85rem;color:var(--soft);letter-spacing:.06em;text-transform:uppercase;position:relative}
+@media (min-width:721px){
+  .hero{position:relative;display:block;aspect-ratio:1672/941}
+  .hero-media{position:absolute;inset:0;border-radius:26px}
+  .hero-media::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:
+      linear-gradient(180deg, rgba(21,14,8,.2) 0%, rgba(21,14,8,.4) 48%, rgba(16,10,6,.66) 100%),
+      radial-gradient(ellipse 640px 420px at 50% 46%, rgba(18,11,6,.4), transparent 72%)}
+  .hero-content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:0 clamp(24px,6vw,60px);color:#fbf1e3}
+  .hero .eyebrow{color:#f6d9a8;text-shadow:0 1px 12px rgba(0,0,0,.4)}
+  .hero .eyebrow::before,.hero .eyebrow::after{background:#f6d9a8;opacity:.75}
+  .hero h1{color:#fffaf0;text-shadow:0 2px 4px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.3)}
+  .hero h1 em{color:#ffa17c;text-shadow:0 2px 4px rgba(0,0,0,.35),0 0 34px rgba(255,138,92,.55),0 10px 30px rgba(0,0,0,.3)}
+  .hero-sub{color:#f5e9d9;text-shadow:0 1px 12px rgba(0,0,0,.4)}
+  .datum{color:#e6d4bd;text-shadow:0 1px 10px rgba(0,0,0,.4)}
+}
 .block{position:relative;overflow:hidden;isolation:isolate;
   background:linear-gradient(var(--raised),var(--raised)) padding-box,
     linear-gradient(140deg, color-mix(in srgb, var(--gold) 55%, transparent) 0%, color-mix(in srgb, var(--gold) 10%, transparent) 45%, color-mix(in srgb, var(--coral) 22%, transparent) 100%) border-box;
@@ -199,16 +203,18 @@ footer #ver{opacity:.6;font-size:.75rem}
 <body>
 
 
-<div class="hero">
-  <picture class="hero-media">
-    <source srcset="images/hero.webp" type="image/webp">
-    <img src="images/hero.jpg" alt="" width="1672" height="941" loading="eager" fetchpriority="high">
-  </picture>
-  <div class="wrap">
-    <div class="eyebrow">Klára nővér gondolatai nyomán</div>
-    <h1>Lelke <em>Rajtad</em></h1>
-    <p class="hero-sub">Minden napra egy manna, egy rövid tanítás és egy imádság. Csendes forrás nehéz és szép napokra.</p>
-    <div class="datum" id="datum"></div>
+<div class="hero-shell">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Klára nővér gondolatai nyomán</div>
+      <h1>Lelke <em>Rajtad</em></h1>
+      <p class="hero-sub">Minden napra egy manna, egy rövid tanítás és egy imádság. Csendes forrás nehéz és szép napokra.</p>
+      <div class="datum" id="datum"></div>
+    </div>
+    <picture class="hero-media">
+      <source srcset="images/hero.webp" type="image/webp">
+      <img src="images/hero.jpg" alt="" width="1672" height="941" loading="eager" fetchpriority="high">
+    </picture>
   </div>
 </div>
 
