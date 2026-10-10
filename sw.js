@@ -1,11 +1,12 @@
 // Lelke Rajtad - minimal service worker, csak a telepíthetőséghez és
 // egy könnyű offline tartaléklapon kívül nem gyorsítótáraz semmit.
-const CACHE_NAME = "lelkerajtad-shell-v1";
+const CACHE_NAME = "lelkerajtad-shell-v2";
 const SHELL_URL = "index.html";
+const CONTENT_URL = "data/content.json";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll([SHELL_URL]))
+    caches.open(CACHE_NAME).then((cache) => cache.addAll([SHELL_URL, CONTENT_URL]))
   );
   self.skipWaiting();
 });
