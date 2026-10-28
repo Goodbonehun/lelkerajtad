@@ -290,7 +290,7 @@ footer #ver{opacity:.6;font-size:.75rem}
 .search-results{overflow-y:auto;padding:6px}
 .search-hint,.search-empty{padding:20px 16px;color:var(--soft);font-size:.9rem;text-align:center}
 .search-result{display:block;width:100%;text-align:left;background:transparent;border:0;border-radius:12px;
-  padding:10px 12px;cursor:pointer;color:var(--ink);font-family:inherit}
+  padding:10px 12px;cursor:pointer;color:var(--ink);font-family:inherit;text-decoration:none}
 .search-result:hover,.search-result:focus-visible{background:color-mix(in srgb, var(--gold) 14%, transparent);outline:0}
 .search-result-date{display:block;font-size:.76rem;color:var(--goldd);font-weight:700;letter-spacing:.02em;margin-bottom:2px}
 .search-result-title{display:block;font-family:"Fraunces",serif;font-weight:600;margin-bottom:2px}
@@ -786,15 +786,17 @@ function runSearch(query) {
   results.innerHTML = shown.map(hit => {
     const off = offsetForDayIndex(hit.index);
     const d = new Date(); d.setDate(d.getDate() + off);
-    return '<button type="button" class="search-result" data-offset="' + off + '">' +
+    return '<a href="index.html?datum=' + dateKey(d) + '" class="search-result" data-offset="' + off + '">' +
       '<span class="search-result-date">' + escHtml(HU_DATE_SHORT.format(d)) + '</span>' +
       '<span class="search-result-title">' + escHtml(hit.title) + '</span>' +
       '<span class="search-result-snippet">' + hit.snippet + '</span>' +
-      '</button>';
+      '</a>';
   }).join("") + (hits.length > shown.length ? '<p class="search-more">Csak az első 30 találat jelenik meg, pontosíts a keresésre.</p>' : "");
-  results.querySelectorAll(".search-result").forEach(btn => {
-    btn.addEventListener("click", () => {
-      offset = parseInt(btn.dataset.offset, 10);
+  results.querySelectorAll(".search-result").forEach(link => {
+    link.addEventListener("click", (e) => {
+      if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      offset = parseInt(link.dataset.offset, 10);
       show();
       closeSearch();
       const title = document.getElementById("t-title");
