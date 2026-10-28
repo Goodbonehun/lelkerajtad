@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>(function(){try{var STEPS=[0.9,1,1.1,1.22,1.35];var v=parseFloat(localStorage.getItem('lelkerajtad-fs'));var i=STEPS.indexOf(v);document.documentElement.style.setProperty('--fs-scale', STEPS[i===-1?1:i]);}catch(e){}})();</script>
+<meta name="description" content="Feljegyzések: saját gondolataid, amiket a napi tanításhoz vagy spontán megőrzöl. A Lelke Rajtad oldal része.">
+<meta name="robots" content="noindex">
+<title>Feljegyzések · Lelke Rajtad</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/favicon-v3.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192-v3.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon-v3.png">
+<meta name="theme-color" content="#f4ad3f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Lelke Rajtad">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --paper:#fffaf2; --raised:#fff4e2; --ink:#4a4038; --soft:#6f6052;
+  --gold:#f4ad3f; --goldd:#e08c1f; --coral:#ff8a5c; --papaya:#ff7a2e; --sky:#6aa8cc; --moss:#8fb573; --lilac:#9b7bc4;
+  --line:rgba(170,120,60,.18); --radius:20px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:#292019; --raised:#352a20; --ink:#f7ede0; --soft:#cfbfae;
+    --gold:#f5b355; --goldd:#f8c67c; --coral:#ff9b74; --papaya:#ffa159; --sky:#8cbcd9; --moss:#a3bd8b; --lilac:#c1a8e8;
+    --line:rgba(247,222,190,.18);
+  }
+}
+:root[data-theme="dark"] {
+  --paper:#292019; --raised:#352a20; --ink:#f7ede0; --soft:#cfbfae;
+  --gold:#f5b355; --goldd:#f8c67c; --coral:#ff9b74; --papaya:#ffa159; --sky:#8cbcd9; --moss:#a3bd8b; --lilac:#c1a8e8;
+  --line:rgba(247,222,190,.18);
+}
+*{box-sizing:border-box}
+html{font-size:calc(16px * var(--fs-scale, 1))}
+body{margin:0;color:var(--ink);font-family:"Figtree",-apple-system,"Segoe UI",sans-serif;line-height:1.7;
+  background:
+    radial-gradient(ellipse 1000px 560px at 50% 0%, color-mix(in srgb, var(--gold) 16%, transparent), transparent 62%),
+    radial-gradient(ellipse 700px 500px at 100% 40%, color-mix(in srgb, var(--coral) 8%, transparent), transparent 65%),
+    var(--paper)}
+h1,h2{font-family:"Fraunces",Georgia,serif;text-wrap:balance;font-weight:600;letter-spacing:-0.01em}
+.wrap{max-width:680px;margin:0 auto;padding:0 clamp(20px,5vw,40px)}
+.top{max-width:680px;margin:0 auto;padding:clamp(28px,6vw,44px) clamp(20px,5vw,40px) 0}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--soft);text-decoration:none;font-size:.86rem;font-weight:600}
+.back-link:hover{color:var(--goldd)}
+.back-icon{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--goldd);font-weight:700;margin:20px 0 10px}
+.eyebrow::before,.eyebrow::after{content:"";width:22px;height:1px;background:var(--goldd);opacity:.6}
+h1{font-size:clamp(2rem,6vw,2.7rem);margin:0 0 10px}
+.intro{color:var(--soft);font-size:1rem;max-width:520px;margin:0 0 28px}
+.block{position:relative;overflow:hidden;isolation:isolate;margin:0 auto 20px;max-width:680px;
+  background:linear-gradient(var(--raised),var(--raised)) padding-box,
+    linear-gradient(140deg, color-mix(in srgb, var(--gold) 55%, transparent) 0%, color-mix(in srgb, var(--gold) 10%, transparent) 45%, color-mix(in srgb, var(--coral) 22%, transparent) 100%) border-box;
+  border:1px solid transparent;border-radius:var(--radius);padding:clamp(20px,5vw,30px);
+  box-shadow:0 20px 40px -28px color-mix(in srgb, var(--ink) 40%, transparent)}
+.today-card{display:flex;align-items:flex-start;gap:12px;font-size:.92rem}
+.today-card .today-icon{width:19px;height:19px;flex:none;margin-top:2px;stroke:var(--goldd);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.today-title{font-family:"Fraunces",serif;font-weight:600;margin:0 0 2px}
+.today-date{color:var(--soft);font-size:.82rem;margin:0 0 8px}
+.today-toggle{display:flex;align-items:center;gap:8px;font-size:.86rem;color:var(--soft);cursor:pointer}
+.today-toggle input{accent-color:var(--goldd)}
+.note-form textarea{width:100%;min-height:120px;resize:vertical;border:1px solid var(--line);border-radius:14px;
+  background:color-mix(in srgb, #fff 10%, transparent);color:var(--ink);font:inherit;font-size:.98rem;padding:14px;outline:0}
+.note-form textarea:focus{border-color:var(--goldd)}
+.note-form-row{display:flex;justify-content:flex-end;margin-top:12px}
+.btn-save{display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(150deg, color-mix(in srgb, #fff 26%, transparent), color-mix(in srgb, #fff 6%, transparent));
+  border:1px solid var(--line);border-radius:100px;color:var(--soft);font:inherit;font-weight:600;font-size:.85rem;padding:9px 22px;cursor:pointer;
+  backdrop-filter:blur(8px) saturate(1.15);transition:color .15s,border-color .15s,transform .1s}
+.btn-save:hover{color:color-mix(in srgb, var(--coral) 60%, var(--ink) 40%);border-color:var(--coral)}
+.btn-save:active{transform:scale(.97)}
+.btn-save:disabled{opacity:.4;cursor:default}
+.notes-list{display:flex;flex-direction:column;gap:14px}
+.note-card{background:linear-gradient(var(--raised),var(--raised)) padding-box,
+    linear-gradient(140deg, color-mix(in srgb, var(--gold) 45%, transparent) 0%, color-mix(in srgb, var(--gold) 8%, transparent) 45%, transparent 100%) border-box;
+  border:1px solid transparent;border-radius:16px;padding:16px 18px}
+.note-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:8px;font-size:.78rem;color:var(--soft)}
+.note-date{font-weight:600}
+.note-tag{display:inline-flex;align-items:center;gap:5px;color:var(--goldd);text-decoration:none;border:1px solid var(--line);border-radius:100px;padding:3px 11px;font-weight:600}
+.note-tag:hover{border-color:var(--goldd)}
+.note-text{white-space:pre-wrap;margin:0 0 10px;font-size:.98rem}
+.note-actions{display:flex;gap:10px;font-size:.82rem}
+.note-action{background:none;border:0;color:var(--soft);cursor:pointer;padding:2px 2px;font:inherit;font-weight:600}
+.note-action:hover{color:var(--goldd)}
+.note-action.danger:hover{color:var(--coral)}
+.note-edit textarea{width:100%;min-height:100px;resize:vertical;border:1px solid var(--line);border-radius:12px;
+  background:color-mix(in srgb, #fff 10%, transparent);color:var(--ink);font:inherit;font-size:.96rem;padding:12px;outline:0;margin-bottom:8px}
+.note-confirm{display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--soft)}
+.note-confirm button{font:inherit;font-weight:600;border:0;background:none;cursor:pointer;padding:2px 4px}
+.note-confirm .confirm-yes{color:var(--coral)}
+.note-confirm .confirm-no{color:var(--soft)}
+.notes-empty{color:var(--soft);font-size:.92rem;margin:0;text-align:center}
+footer{max-width:680px;margin:30px auto 40px;padding:0 clamp(20px,5vw,40px);text-align:center;color:var(--soft);font-size:.82rem}
+.heart{color:var(--coral)}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a class="back-link" href="index.html">
+    <svg class="back-icon" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+    Vissza a mai naphoz
+  </a>
+  <div class="eyebrow">Saját hang a csendben</div>
+  <h1>Feljegyzések</h1>
+  <p class="intro">Ide írhatod le, ami a mai tanításból benned maradt, vagy bármilyen spontán gondolatot, amit szeretnél megőrizni. A feljegyzéseid csak ezen a készüléken, ebben a böngészőben maradnak meg.</p>
+</div>
+
+<div class="wrap">
+  <div class="block today-card-block" id="todayCardBlock" hidden>
+    <div class="today-card">
+      <svg class="today-icon" viewBox="0 0 24 24"><path d="M12 3.2v9.2"/><path d="M9 5.2c0 4-2 6-4 8 1 3 4 4 4 4 1-1 2-3 3-5.2"/><path d="M15 5.2c0 4 2 6 4 8-1 3-4 4-4 4-1-1-2-3-3-5.2"/></svg>
+      <div>
+        <p class="today-title" id="todayTitle"></p>
+        <p class="today-date" id="todayDate"></p>
+        <label class="today-toggle">
+          <input type="checkbox" id="todayToggle" checked>
+          Kapcsolódjon a mai naphoz
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="block note-form">
+    <textarea id="noteInput" placeholder="Írd ide, ami most benned van…"></textarea>
+    <div class="note-form-row">
+      <button type="button" class="btn-save" id="noteSaveBtn" disabled>Mentés</button>
+    </div>
+  </div>
+
+  <div class="notes-list" id="notesList"></div>
+</div>
+
+<footer>Lelke Rajtad · Klára nővér gondolatai nyomán, <span class="heart">♥</span> · feljegyzések</footer>
+
+<script>
+const LS_NOTES = "lelkerajtad-notes";
+function lsStore(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+function lsRead(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+function escHtml(s) { return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+function getNotes() { try { const a = JSON.parse(lsRead(LS_NOTES) || "[]"); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+function saveNotes(notes) { lsStore(LS_NOTES, JSON.stringify(notes)); }
+
+const HU_DATETIME = new Intl.DateTimeFormat("hu-HU", { year:"numeric", month:"long", day:"numeric", hour:"2-digit", minute:"2-digit" });
+const HU_DATE_SHORT = new Intl.DateTimeFormat("hu-HU", { year:"numeric", month:"long", day:"numeric" });
+
+function renderNotes() {
+  const list = document.getElementById("notesList");
+  const notes = getNotes().slice().sort((a, b) => b.created.localeCompare(a.created));
+  if (!notes.length) {
+    list.innerHTML = '<p class="notes-empty">Még nincs egyetlen feljegyzésed sem. Írd meg az elsőt fent.</p>';
+    return;
+  }
+  list.innerHTML = notes.map(note => {
+    const created = new Date(note.created);
+    const dateStr = isNaN(created.getTime()) ? "" : HU_DATETIME.format(created);
+    const tag = note.dayTitle
+      ? '<a class="note-tag" href="index.html?datum=' + encodeURIComponent(note.dayDate || "") + '">' + escHtml(note.dayTitle) + '</a>'
+      : "";
+    return '<div class="note-card" data-id="' + note.id + '">' +
+      '<div class="note-meta"><span class="note-date">' + escHtml(dateStr) + '</span>' + tag + '</div>' +
+      '<p class="note-text">' + escHtml(note.text) + '</p>' +
+      '<div class="note-actions">' +
+        '<button type="button" class="note-action note-edit-btn">Szerkesztés</button>' +
+        '<button type="button" class="note-action danger note-delete-btn">Törlés</button>' +
+      '</div>' +
+    '</div>';
+  }).join("");
+  list.querySelectorAll(".note-card").forEach(card => {
+    const id = card.dataset.id;
+    card.querySelector(".note-edit-btn").addEventListener("click", () => startEdit(card, id));
+    card.querySelector(".note-delete-btn").addEventListener("click", () => startDelete(card, id));
+  });
+}
+
+function startEdit(card, id) {
+  const notes = getNotes();
+  const note = notes.find(n => n.id === id);
+  if (!note) return;
+  card.innerHTML = '<div class="note-edit">' +
+    '<textarea>' + escHtml(note.text) + '</textarea>' +
+    '<div class="note-form-row">' +
+      '<button type="button" class="note-action edit-cancel">Mégse</button>' +
+      '<button type="button" class="btn-save edit-save">Mentés</button>' +
+    '</div>' +
+  '</div>';
+  card.querySelector(".edit-cancel").addEventListener("click", renderNotes);
+  card.querySelector(".edit-save").addEventListener("click", () => {
+    const val = card.querySelector("textarea").value.trim();
+    if (!val) return;
+    const all = getNotes();
+    const idx = all.findIndex(n => n.id === id);
+    if (idx !== -1) { all[idx].text = val; saveNotes(all); }
+    renderNotes();
+  });
+}
+
+function startDelete(card, id) {
+  const prev = card.innerHTML;
+  const actions = card.querySelector(".note-actions");
+  actions.innerHTML = '<div class="note-confirm">Biztosan törlöd?' +
+    '<button type="button" class="confirm-yes">Igen, törlöm</button>' +
+    '<button type="button" class="confirm-no">Mégse</button></div>';
+  card.querySelector(".confirm-yes").addEventListener("click", () => {
+    const all = getNotes().filter(n => n.id !== id);
+    saveNotes(all);
+    renderNotes();
+  });
+  card.querySelector(".confirm-no").addEventListener("click", () => { card.innerHTML = prev; renderNotes(); });
+}
+
+function makeId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+
+let todayInfo = null;
+
+function wireForm() {
+  const input = document.getElementById("noteInput");
+  const btn = document.getElementById("noteSaveBtn");
+  input.addEventListener("input", () => { btn.disabled = !input.value.trim(); });
+  btn.addEventListener("click", () => {
+    const text = input.value.trim();
+    if (!text) return;
+    const toggle = document.getElementById("todayToggle");
+    const attach = todayInfo && toggle && toggle.checked;
+    const notes = getNotes();
+    notes.push({
+      id: makeId(),
+      created: new Date().toISOString(),
+      text: text,
+      dayTitle: attach ? todayInfo.title : null,
+      dayDate: attach ? todayInfo.dateKey : null
+    });
+    saveNotes(notes);
+    input.value = "";
+    btn.disabled = true;
+    renderNotes();
+  });
+}
+
+async function loadTodayContext() {
+  try {
+    const res = await fetch("data/content.json", { cache: "no-cache" });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
+    const days = data.days;
+    const start = new Date("2026-08-29T00:00:00");
+    const now = new Date();
+    const diff = Math.floor((now - start) / 86400000);
+    const idx = ((diff % days.length) + days.length) % days.length;
+    const day = days[idx];
+    if (!day) return;
+    const dateKey = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
+    todayInfo = { title: day.title, dateKey: dateKey };
+    document.getElementById("todayTitle").textContent = day.title;
+    document.getElementById("todayDate").textContent = HU_DATE_SHORT.format(now);
+    document.getElementById("todayCardBlock").hidden = false;
+  } catch (e) {
+    todayInfo = null;
+  }
+}
+
+renderNotes();
+wireForm();
+loadTodayContext();
+</script>
+</body>
+</html>

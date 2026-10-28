@@ -271,10 +271,48 @@ footer #ver{opacity:.6;font-size:.75rem}
 .favorites-jump:hover{border-color:var(--goldd);color:var(--goldd)}
 .favorites-remove{background:none;border:0;color:var(--soft);font-size:1.1rem;line-height:1;cursor:pointer;padding:6px 8px;border-radius:8px}
 .favorites-remove:hover{color:var(--coral)}
+.nav-tools{position:absolute;top:clamp(14px,3vw,20px);right:clamp(14px,3vw,24px);z-index:5;
+  display:flex;align-items:center;gap:8px;font-family:"Figtree",-apple-system,"Segoe UI",sans-serif}
+.nav-tools .rt-btn{text-decoration:none;color:var(--soft)}
+.nav-icon{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.search-overlay{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-start;justify-content:center;
+  padding:min(10vh,80px) 16px 24px;background:color-mix(in srgb, var(--ink) 45%, transparent);backdrop-filter:blur(2px)}
+.search-overlay[hidden]{display:none}
+.search-panel{width:100%;max-width:560px;max-height:min(72vh,640px);display:flex;flex-direction:column;
+  background:var(--raised);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:0 30px 60px -20px color-mix(in srgb, var(--ink) 55%, transparent);overflow:hidden}
+.search-head{display:flex;align-items:center;gap:8px;padding:14px 10px 10px 16px;border-bottom:1px solid var(--line)}
+.search-head .search-icon{width:18px;height:18px;flex:none;stroke:var(--soft);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.search-input{flex:1;border:0;background:transparent;font:inherit;font-size:1rem;color:var(--ink);padding:8px 4px;outline:0;min-width:0}
+.search-input::placeholder{color:var(--soft)}
+.search-close{border:0;background:transparent;color:var(--soft);font-size:1.3rem;line-height:1;cursor:pointer;padding:4px 10px;border-radius:8px}
+.search-close:hover{color:var(--goldd);background:color-mix(in srgb, var(--gold) 16%, transparent)}
+.search-results{overflow-y:auto;padding:6px}
+.search-hint,.search-empty{padding:20px 16px;color:var(--soft);font-size:.9rem;text-align:center}
+.search-result{display:block;width:100%;text-align:left;background:transparent;border:0;border-radius:12px;
+  padding:10px 12px;cursor:pointer;color:var(--ink);font-family:inherit}
+.search-result:hover,.search-result:focus-visible{background:color-mix(in srgb, var(--gold) 14%, transparent);outline:0}
+.search-result-date{display:block;font-size:.76rem;color:var(--goldd);font-weight:700;letter-spacing:.02em;margin-bottom:2px}
+.search-result-title{display:block;font-family:"Fraunces",serif;font-weight:600;margin-bottom:2px}
+.search-result-snippet{display:block;font-size:.86rem;color:var(--soft);line-height:1.5}
+.search-result-snippet mark{background:color-mix(in srgb, var(--gold) 45%, transparent);color:var(--ink);border-radius:3px;padding:0 1px}
+.search-more{padding:4px 14px 12px;color:var(--soft);font-size:.8rem;text-align:center}
 </style>
 </head>
 <body>
 
+<div class="search-overlay" id="searchOverlay" hidden>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Keresés a napi tanításokban">
+    <div class="search-head">
+      <svg class="search-icon" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-5-5"/></svg>
+      <input type="search" id="searchInput" class="search-input" placeholder="Keress egy szóra, gondolatra…" autocomplete="off">
+      <button type="button" id="searchCloseBtn" class="search-close" aria-label="Bezárás">&times;</button>
+    </div>
+    <div class="search-results" id="searchResults">
+      <p class="search-hint">Írj be legalább két betűt, és megkeresem azokat a napokat, amelyeknek a címében vagy szövegében szerepel.</p>
+    </div>
+  </div>
+</div>
 
 <header class="page-top">
   <div class="reading-tools" id="readingTools">
@@ -282,6 +320,16 @@ footer #ver{opacity:.6;font-size:.75rem}
       <button type="button" class="rt-btn rt-small" id="fsMinus" aria-label="Kisebb betű" title="Kisebb betű">A</button>
       <span class="rt-label" id="fsLabel"></span>
       <button type="button" class="rt-btn rt-large" id="fsPlus" aria-label="Nagyobb betű" title="Nagyobb betű">A</button>
+    </div>
+  </div>
+  <div class="nav-tools" id="navTools">
+    <div class="rt-group">
+      <button type="button" class="rt-btn" id="searchOpenBtn" aria-label="Keresés" title="Keresés">
+        <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-5-5"/></svg>
+      </button>
+      <a class="rt-btn" href="jegyzetek.html" aria-label="Feljegyzések" title="Feljegyzések">
+        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M4 20.5l1.1-4.2L15.8 5.6a1.6 1.6 0 0 1 2.3 0l1.3 1.3a1.6 1.6 0 0 1 0 2.3L8.6 19.4z"/><path d="M14.3 7.1l3.6 3.6"/></svg>
+      </a>
     </div>
   </div>
   <div class="hero-shell">
@@ -680,6 +728,89 @@ function show() {
   renderCalendar();
   renderFavToggle(d);
 }
+function offsetForDayIndex(targetIndex) {
+  const todayIndex = dayIndexFor(new Date());
+  const delta = (targetIndex - todayIndex + DAYS.length) % DAYS.length;
+  return delta === 0 ? 0 : delta - DAYS.length;
+}
+function applyUrlJump() {
+  const params = new URLSearchParams(location.search);
+  const datum = params.get("datum");
+  if (!datum || !/^\d{4}-\d{2}-\d{2}$/.test(datum)) return;
+  const target = keyToDate(datum);
+  if (isNaN(target.getTime())) return;
+  const today0 = new Date(); today0.setHours(0, 0, 0, 0);
+  const off = Math.min(0, Math.round((target - today0) / 86400000));
+  offset = off;
+  history.replaceState(null, "", location.pathname);
+}
+function searchSnippet(text, query) {
+  const lower = text.toLowerCase();
+  const idx = lower.indexOf(query);
+  if (idx === -1) return null;
+  const start = Math.max(0, idx - 48);
+  const end = Math.min(text.length, idx + query.length + 64);
+  let snippet = text.slice(start, end).replace(/\s+/g, " ").trim();
+  if (start > 0) snippet = "…" + snippet;
+  if (end < text.length) snippet += "…";
+  const lowerSnippet = snippet.toLowerCase();
+  const hitAt = lowerSnippet.indexOf(query);
+  if (hitAt === -1) return escHtml(snippet);
+  return escHtml(snippet.slice(0, hitAt)) + "<mark>" + escHtml(snippet.slice(hitAt, hitAt + query.length)) + "</mark>" + escHtml(snippet.slice(hitAt + query.length));
+}
+function runSearch(query) {
+  const results = document.getElementById("searchResults");
+  const q = query.trim().toLowerCase();
+  if (q.length < 2) {
+    results.innerHTML = '<p class="search-hint">Írj be legalább két betűt, és megkeresem azokat a napokat, amelyeknek a címében vagy szövegében szerepel.</p>';
+    return;
+  }
+  if (!DAYS.length) {
+    results.innerHTML = '<p class="search-hint">A tartalom még töltődik, egy pillanat…</p>';
+    return;
+  }
+  const hits = [];
+  for (let i = 0; i < DAYS.length; i++) {
+    const day = DAYS[i];
+    const hay = (day.title + " " + day.teaching + " " + day.szosszenet).toLowerCase();
+    if (hay.indexOf(q) === -1) continue;
+    let snippet = searchSnippet(day.title, q) || searchSnippet(day.teaching, q) || searchSnippet(day.szosszenet, q);
+    hits.push({ index: i, title: day.title, snippet: snippet || escHtml(day.title) });
+    if (hits.length >= 60) break;
+  }
+  if (!hits.length) {
+    results.innerHTML = '<p class="search-empty">Nincs találat erre a szóra. Próbálj egy másik kifejezést.</p>';
+    return;
+  }
+  const shown = hits.slice(0, 30);
+  results.innerHTML = shown.map(hit => {
+    const off = offsetForDayIndex(hit.index);
+    const d = new Date(); d.setDate(d.getDate() + off);
+    return '<button type="button" class="search-result" data-offset="' + off + '">' +
+      '<span class="search-result-date">' + escHtml(HU_DATE_SHORT.format(d)) + '</span>' +
+      '<span class="search-result-title">' + escHtml(hit.title) + '</span>' +
+      '<span class="search-result-snippet">' + hit.snippet + '</span>' +
+      '</button>';
+  }).join("") + (hits.length > shown.length ? '<p class="search-more">Csak az első 30 találat jelenik meg, pontosíts a keresésre.</p>' : "");
+  results.querySelectorAll(".search-result").forEach(btn => {
+    btn.addEventListener("click", () => {
+      offset = parseInt(btn.dataset.offset, 10);
+      show();
+      closeSearch();
+      const title = document.getElementById("t-title");
+      if (title) title.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+}
+function openSearch() {
+  const overlay = document.getElementById("searchOverlay");
+  overlay.hidden = false;
+  const input = document.getElementById("searchInput");
+  input.focus();
+}
+function closeSearch() {
+  document.getElementById("searchOverlay").hidden = true;
+}
 async function loadContent() {
   const res = await fetch("data/content.json", { cache: "no-cache" });
   if (!res.ok) throw new Error("HTTP " + res.status);
@@ -715,7 +846,21 @@ async function init() {
     renderFavoritesList();
   });
   document.getElementById("share-btn").addEventListener("click", onShareClick);
-  document.getElementById("ver").textContent = "v85";
+  document.getElementById("searchOpenBtn").addEventListener("click", openSearch);
+  document.getElementById("searchCloseBtn").addEventListener("click", closeSearch);
+  document.getElementById("searchOverlay").addEventListener("click", (e) => {
+    if (e.target.id === "searchOverlay") closeSearch();
+  });
+  document.getElementById("searchInput").addEventListener("input", (e) => runSearch(e.target.value));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !document.getElementById("searchOverlay").hidden) closeSearch();
+    if ((e.key === "/" || (e.key.toLowerCase() === "k" && (e.ctrlKey || e.metaKey))) && document.getElementById("searchOverlay").hidden && document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA") {
+      e.preventDefault();
+      openSearch();
+    }
+  });
+  applyUrlJump();
+  document.getElementById("ver").textContent = "v86";
   document.getElementById("sohaj-help-text").textContent = SOHAJ_HELP;
   document.querySelectorAll(".ev-tab").forEach(tab => {
     tab.addEventListener("click", () => {
